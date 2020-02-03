@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Release Notes" href="../release-notes.html" />
@@ -35,16 +36,264 @@
             
   <div class="section" id="analyzing-results">
 <span id="id1"></span><h1>Analyzing Results<a class="headerlink" href="#analyzing-results" title="Permalink to this headline">¶</a></h1>
-<p>SOFEA allows for post-processing of the model runs. The AERMOD model within
-SOFEA has been enhanced by one additional type of output, in addition to the
-PLOT, POST, and OUT files produced using the regulatory version of the
-model. The additional output is in NetCDF format. The SOFEA post-processing tools
-read a NetCDF output produced by the model run and has a built-in interface
-for Analyzing Results. To use this capability, choose <img alt="AnalyzeResults" src="../_images/RunPerformance_16x.png" />
+<p>SOFEA has an integrated suite of post-processing algorithms for common
+statistics used in risk assessment, including summary statistics, moving
+averages, and histogram estimates. To use this capability, select
 <strong>Analyze Results</strong> through the main menu or click the graph button
-<img alt="AnalyzeResults" src="../_images/RunPerformance_16x.png" /> in the toolbar. This opens the Analysis dialog box which allows
-opening a desired modeled output and calculating a number of statistics for
-the concentration data set.</p>
+<img alt="AnalyzeResults" src="../_images/Measure_16x.png" /> in the toolbar.</p>
+<a class="reference internal image-reference" href="../_images/AnalysisWindow.png"><img alt="Analysis Window" class="align-center" src="../_images/AnalysisWindow.png" style="width: 624px;" /></a>
+<p>Select the output file, output type, averaging period, and source group.
+Optionally, type in the desired output units for the analysis. Several
+tools are available:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>Time Series Export</strong></dt>
+<dd>Exports a CSV file with the selected data for further processing,
+optionally with moving averages applied to the time series for
+each receptor.</dd>
+<dt><strong>Receptors</strong></dt>
+<dd>Generates summary statistics by receptor.</dd>
+<dt><strong>Overall Distribution</strong></dt>
+<dd>Estimates a CDF or PDF of the sample distribution for all receptors.</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="histogram-calculations">
+<h2>Histogram Calculations<a class="headerlink" href="#histogram-calculations" title="Permalink to this headline">¶</a></h2>
+<p>For computational efficiency, histogram calculations in SOFEA
+(percentile, CDF and PDF) are estimates based on the P²
+algorithm. For further details and accuracy analysis, see:</p>
+<blockquote>
+<div>R. Jain and I. Chlamtac, The P² algorithm for dynamic
+calculation of quantiles and histograms without storing observations,
+Communications of the ACM, Volume 28 (October), Number 10, 1985, p.
+1076-1085.</div></blockquote>
+<p>The CDF algorithm estimates a histogram of the sample cumulative
+distribution. The returned histogram has a specifiable amount of
+equiprobable (and not equal-sized) bins.</p>
+<p>The PDF algorithm estimates a histogram of the sample distribution. The
+positions and sizes of the bins are determined using a specifiable
+number of cached samples (cache size). The range between the minimum and
+the maximum of the cached samples is subdivided into a specifiable
+number of bins (number of bins) of same size. Additionally, an under-
+and an overflow bin is added to capture future under- and overflow
+samples. Once the bins are determined, the cached samples and all
+subsequent samples are added to the correct bins.</p>
+<p>For implementation details, see the <a class="reference external" href="https://www.boost.org/doc/libs/1_72_0/doc/html/accumulators.html">Boost.Accumulators documentation</a>.</p>
+</div>
+<div class="section" id="averaging">
+<h2>Averaging<a class="headerlink" href="#averaging" title="Permalink to this headline">¶</a></h2>
+<p>SOFEA implements EPA averaging policies for mean and rolling mean
+calculations using the same formulas as AERMOD. These policies are
+formally described in 40 CFR Appendix W to Part 51 - Guideline on Air
+Quality Models, § 8.4.6.2:</p>
+<blockquote>
+<div>Hourly concentrations calculated with steady-state Gaussian plume
+models using calms should not be considered valid; the wind and
+concentration estimates for these hours should be disregarded and
+considered to be missing. Model predicted concentrations for 3-, 8-,
+and 24-hour averages should be calculated by dividing the sum of the
+hourly concentrations for the period by the number of valid or
+non-missing hours. If the total number of valid hours is less than
+18 for 24-hour averages, less than 6 for 8-hour averages, or less
+than 3 for 3-hour averages, the total concentration should be
+divided by 18 for the 24-hour average, 6 for the 8-hour average, and
+3 for the 3-hour average. For annual averages, the sum of all valid
+hourly concentrations is divided by the number of non-calm hours
+during the year. AERMOD has been coded to implement these
+instructions. For hours that are calm or missing, the AERMOD hourly
+concentrations will be zero. For other models listed in appendix A,
+a post-processor computer program, CALMPRO118 has been prepared, is
+available on the EPA’s SCRAM Web site (section 2.3), and should be
+used.</div></blockquote>
+<p>AERMOD implements these calculations in <code class="docutils literal notranslate"><span class="pre">SUBROUTINE</span> <span class="pre">AVER</span></code> (calc2.f)
+for short-term averages and <code class="docutils literal notranslate"><span class="pre">SUBROUTINE</span> <span class="pre">PERAVE</span></code> (output.f) for
+long-term averages. In addition to the 3-, 8-, and 24-hour averaging
+periods specifically described in Appendix W, AERMOD uses the following
+formula to derive the denonimator <em>D</em> for any short-term averaging
+period, less than or equal to 24 hours:</p>
+<div class="math notranslate nohighlight">
+\[D = \max\left[\left(N - N_\mathrm{calm} - N_\mathrm{missing}\right),\;\mathrm{round}\left(N \times 0.75 + 0.4\right)\right]\]</div>
+<p>In addition to the annual averages described in the guidance, AERMOD
+also considers calm and missing hours in the denominator for <code class="docutils literal notranslate"><span class="pre">PERIOD</span></code>
+averages of less than one year:</p>
+<div class="math notranslate nohighlight">
+\[D = N - N_\mathrm{calm} - N_\mathrm{missing}\]</div>
+</div>
+<div class="section" id="postfile-format">
+<h2>POSTFILE Format<a class="headerlink" href="#postfile-format" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the PLOT, POST, and OUT files produced using the
+regulatory version of the model, The AERMOD model within SOFEA
+(SOFEA-AERMOD) has been enhanced to provide a new <cite>NETCDF</cite> option for
+the <cite>OU POSTFILE</cite> keyword, which generates compressed output files in
+<a class="reference external" href="https://www.unidata.ucar.edu/software/netcdf/">netCDF</a> format. To facilitate interoperability with other data analysis
+and visualization packages used in climate science, the netCDF POSTFILE
+format generated by SOFEA-AERMOD conforms to the <a class="reference external" href="http://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/cf-conventions.html">Climate and Forecast
+(CF) Metadata Conventions, Version 1.7</a>. Specifically, the output is
+structured using an <a class="reference external" href="http://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/cf-conventions.html#_orthogonal_multidimensional_array_representation_of_time_series">orthogonal multidimensional array representation</a>,
+designed for efficient access to concentrations and/or deposition fluxes
+by averaging period, source group, receptor and time.</p>
+<p>Dimensions are defined as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Dimension</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>Receptor</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">arc</span></code></td>
+<td>EVALCART receptor arc</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">net</span></code></td>
+<td>GRIDCART/GRIDPOLR receptor network</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">grp</span></code></td>
+<td>Source group</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">ave</span></code></td>
+<td>Averaging period</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">time</span></code></td>
+<td>Time</td>
+</tr>
+</tbody>
+</table>
+<p>Variables are defined as follows, where the first dimension varies fastest:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="34%" />
+<col width="8%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Dimensions</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>double</td>
+<td>Receptor x-coordinate (m)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">y</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>double</td>
+<td>Receptor y-coordinate (m)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">zelev</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>double</td>
+<td>Receptor terrain elevation (m)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">zhill</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>double</td>
+<td>Receptor hill height scale (m)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">zflag</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>double</td>
+<td>Receptor flagpole height (m)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>int</td>
+<td>Receptor index</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">arc</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>int</td>
+<td>EVALCART receptor arc index</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">arcid</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">arc</span></code></td>
+<td>char[8]</td>
+<td>EVALCART receptor arc ID</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">net</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">rec</span></code></td>
+<td>int</td>
+<td>GRIDCART/GRIDPOLR receptor network index</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">netid</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">net</span></code></td>
+<td>char[8]</td>
+<td>GRIDCART/GRIDPOLR receptor network ID</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">grp</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">grp</span></code></td>
+<td>char[8]</td>
+<td>Source group ID</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">ave</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">ave</span></code></td>
+<td>int</td>
+<td>Averaging period (hours)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">time</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">time</span></code></td>
+<td>int</td>
+<td>Time value (hours since start)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">clmsg</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">time</span></code></td>
+<td>byte</td>
+<td>Calm or missing hour flag (1:calm; 2:missing)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">conc</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">rec</span></code>, <code class="docutils literal notranslate"><span class="pre">grp</span></code>, <code class="docutils literal notranslate"><span class="pre">ave</span></code></td>
+<td>double</td>
+<td>Concentration value (μg/m³ or CONCUNIT)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">depos</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">rec</span></code>, <code class="docutils literal notranslate"><span class="pre">grp</span></code>, <code class="docutils literal notranslate"><span class="pre">ave</span></code></td>
+<td>double</td>
+<td>Total deposition flux (g/m² or DEPOUNIT)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">ddep</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">rec</span></code>, <code class="docutils literal notranslate"><span class="pre">grp</span></code>, <code class="docutils literal notranslate"><span class="pre">ave</span></code></td>
+<td>double</td>
+<td>Dry deposition flux (g/m² or DEPOUNIT)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">wdep</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">rec</span></code>, <code class="docutils literal notranslate"><span class="pre">grp</span></code>, <code class="docutils literal notranslate"><span class="pre">ave</span></code></td>
+<td>double</td>
+<td>Wet deposition flux (g/m² or DEPOUNIT)</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">conc</span></code>, <code class="docutils literal notranslate"><span class="pre">depos</span></code>, <code class="docutils literal notranslate"><span class="pre">ddep</span></code>, and <code class="docutils literal notranslate"><span class="pre">wdep</span></code> variables are only
+present if the associated output type was selected in AERMOD.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">time</span></code> variable contains only the hours associated with averaging
+periods selected for output. If multiple averaging periods are selected,
+the time interval corresponds to the shortest averaging period. If no
+average was calculated at a particular time point, for example an
+average at hour 3 for a 24-hour averaging period, the concentration and
+deposition arrays will contain a missing value at the associated index
+(<code class="docutils literal notranslate"><span class="pre">NC_FILL_DOUBLE</span></code>, defined as <code class="docutils literal notranslate"><span class="pre">9.9692099683868690e+36</span></code>).</p>
+</div>
+<div class="section" id="using-python">
+<h2>Using Python<a class="headerlink" href="#using-python" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="http://xarray.pydata.org/en/stable/">xarray</a> package in Python provides a convenient interface for specialized analyses. For example, the following code could be used to calculate the exact 95th percentile concentration at each receptor, for the 24-hour averaging period:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="kn">as</span> <span class="nn">xr</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;postfile.nc&#39;</span><span class="p">)</span>
+<span class="n">aveconc</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;conc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">ave</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">p95</span> <span class="o">=</span> <span class="n">aveconc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;rec&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">p95</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

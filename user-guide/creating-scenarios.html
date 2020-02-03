@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Creating Source Groups" href="creating-source-groups.html" />
@@ -70,12 +71,14 @@ with these fumigants are populated within SOFEA.</p>
 <p>A non-zero decay coefficient enables exponential decay calculations in
 AERMOD using the DCAYCOEF keyword. See the AERMOD documentation for more
 information.</p>
-<p>Averaging period in hours can be any factor of 24. Any desired combination of
-averaging periods can be requested (e.g., 1 hour and 24 hours).</p>
+<p>Averaging period in hours can be any factor of 24. Any desired
+combination of averaging periods can be requested (e.g., 1 hour and 24
+hours). Shorter averaging periods will produce larger output files and
+require additional post-processing time.</p>
 </div>
 <div class="section" id="meteorological-data">
 <h2>Meteorological Data<a class="headerlink" href="#meteorological-data" title="Permalink to this headline">¶</a></h2>
-<a class="reference internal image-reference" href="../_images/Scenario2.png"><img alt="Scenario Meteorological Data" class="align-center" src="../_images/Scenario2.png" style="width: 624px;" /></a>
+<a class="reference internal image-reference" href="../_images/Scenario2.png"><img alt="Meteorological Data" class="align-center" src="../_images/Scenario2.png" style="width: 624px;" /></a>
 <p>AERMET format surface and upper air data files (<code class="docutils literal notranslate"><span class="pre">*</span></code>.SFC and <code class="docutils literal notranslate"><span class="pre">*</span></code>.PFL) are
 required. After selecting the files and clicking <strong>Update</strong>, the files will be
 checked for validity. Once updated, the surface station ID, upper air station
@@ -83,13 +86,18 @@ ID, and all contiguous time intervals in the surface file are shown in the
 dialog box.</p>
 <p>The anemometer height menu shows 10 m as a default value. Adjust the anemometer
 height as needed by typing in the desired value or using the up-down control.</p>
-<p>The wind rotation value is set to zero by default and should be modified only
-if clear justification is provided. Check AERMOD documentation for guidance.</p>
+<p>The wind rotation value is set to zero by default and should be modified
+only if clear justification is provided. The calculator button opens a
+magnetic declination calculator which estimates the rotation angle to
+true north using <a class="reference external" href="https://www.ngdc.noaa.gov/geomag/calculators/magcalc.shtml">NCEI Geomagnetic Models</a>. This option should only be
+used if wind direction is referenced to magnetic north, which is
+uncommon.</p>
+<a class="reference internal image-reference" href="../_images/MagneticDeclination.png"><img alt="Magnetic Declination Calculator" class="align-center" src="../_images/MagneticDeclination.png" style="width: 484px;" /></a>
 <p>The <strong>Diagnostics</strong> button opens an interactive dialog with a wind rose and
 total/calm/missing hours metrics, updated in real-time as the slider is
 moved to change the time interval. Wind speed bins (color, intervals)
 and sector size can be customized.</p>
-<a class="reference internal image-reference" href="../_images/Diagnostics.png"><img alt="Scenario Meteorological Data Diagnostics" class="align-center" src="../_images/Diagnostics.png" style="width: 624px;" /></a>
+<a class="reference internal image-reference" href="../_images/Diagnostics.png"><img alt="Meteorological Data Diagnostics" class="align-center" src="../_images/Diagnostics.png" style="width: 624px;" /></a>
 </div>
 <div class="section" id="flux-profiles">
 <h2>Flux Profiles<a class="headerlink" href="#flux-profiles" title="Permalink to this headline">¶</a></h2>
@@ -100,16 +108,16 @@ at the source group level.</p>
 <p>The <strong>Edit</strong> button opens a dialog to define the reference flux profile,
 and scaling settings based on the application start time and/or
 incorporation depth for a specific source.</p>
-<a class="reference internal image-reference" href="../_images/ReferenceFlux.png"><img alt="Scenario Reference Flux" class="align-center" src="../_images/ReferenceFlux.png" style="width: 436px;" /></a>
+<a class="reference internal image-reference" href="../_images/ReferenceFlux.png"><img alt="Reference Flux Profile" class="align-center" src="../_images/ReferenceFlux.png" style="width: 436px;" /></a>
 <p>The <strong>Plot</strong> button displays an interactive plot of the flux profile.
 Editing the application start time, application rate, or incorporation
 depth will show the flux profile with scaling applied based on these
 specific parameters.</p>
-<a class="reference internal image-reference" href="../_images/ReferenceFluxPlot.png"><img alt="Scenario Reference Flux Plot" class="align-center" src="../_images/ReferenceFluxPlot.png" style="width: 624px;" /></a>
+<a class="reference internal image-reference" href="../_images/ReferenceFluxPlot.png"><img alt="Reference Flux Profile Plot" class="align-center" src="../_images/ReferenceFluxPlot.png" style="width: 624px;" /></a>
 </div>
 <div class="section" id="dispersion-model">
 <h2>Dispersion Model<a class="headerlink" href="#dispersion-model" title="Permalink to this headline">¶</a></h2>
-<a class="reference internal image-reference" href="../_images/Scenario4.png"><img alt="Scenario Dispersion Model" class="align-center" src="../_images/Scenario4.png" style="width: 624px;" /></a>
+<a class="reference internal image-reference" href="../_images/Scenario4.png"><img alt="Dispersion Model Settings" class="align-center" src="../_images/Scenario4.png" style="width: 624px;" /></a>
 <p>The Dispersion Model page is used to set specific control options for
 AERMOD. See the AERMOD documentation for more information on specific
 keywords.</p>

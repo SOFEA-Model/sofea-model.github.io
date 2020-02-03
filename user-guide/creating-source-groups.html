@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Creating Source Groups &#8212; SOFEA 4.1.5-ALPHA documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Managing Sources" href="managing-sources.html" />
@@ -39,17 +38,17 @@
 <p>After a Source Group has been added to a scenario, the <strong>Source Group Context Menu</strong> becomes available:</p>
 <a class="reference internal image-reference" href="../_images/ContextMenu2.png"><img alt="Source Group Context Menu" class="align-center" src="../_images/ContextMenu2.png" style="width: 190px;" /></a>
 <blockquote class="epigraph">
-<div><dl class="docutils">
-<dt><strong>Clone</strong></dt>
-<dd>Creates a duplicate source group in the same scenario.</dd>
-<dt><strong>Rename</strong></dt>
-<dd>Changes the source group name. Must contain only letters and numbers.</dd>
-<dt><strong>Remove</strong></dt>
-<dd>Removes the source group from the scenario.</dd>
-<dt><strong>Properties</strong></dt>
-<dd>View and edit parameters for the source group.</dd>
-<dt><strong>Show Source Table</strong></dt>
-<dd>Opens a table where source properties can be viewed and edited.</dd>
+<div><dl class="simple">
+<dt><strong>Clone</strong></dt><dd><p>Creates a duplicate source group in the same scenario.</p>
+</dd>
+<dt><strong>Rename</strong></dt><dd><p>Changes the source group name. Must contain only letters and numbers.</p>
+</dd>
+<dt><strong>Remove</strong></dt><dd><p>Removes the source group from the scenario.</p>
+</dd>
+<dt><strong>Properties</strong></dt><dd><p>View and edit parameters for the source group.</p>
+</dd>
+<dt><strong>Show Source Table</strong></dt><dd><p>Opens a table where source properties can be viewed and edited.</p>
+</dd>
 </dl>
 </div></blockquote>
 <div class="section" id="application">
@@ -81,8 +80,8 @@ physical parameters corresponding to the modeled pollutant.</p>
 <p>Flux profiles previously defined at the Scenario level can be automatically
 assigned to sources with a specific probability. All probabilities must sum to 1.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">If flux profiles are added/removed or probabilities are changed after adding
+<p class="admonition-title">Warning</p>
+<p>If flux profiles are added/removed or probabilities are changed after adding
 sources, you must manually select the affected sources in the Source Table,
 right click, and select <strong>Resample &gt; Flux Profile</strong>. All sources must be
 assigned a flux profile for SOFEA to run.</p>
@@ -128,8 +127,8 @@ application rate. Based on these two parameters, SOFEA assigns buffer zones to
 sources by getting the value from the last row for which source area and
 application rate are less than the threshold values.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">To use a single buffer zone for all sources regardless of area and application
+<p class="admonition-title">Note</p>
+<p>To use a single buffer zone for all sources regardless of area and application
 rate, add one row with zero for the thresholds, and a second row with
 large values (e.g. 999) for the thresholds.</p>
 </div>
@@ -196,13 +195,11 @@ large values (e.g. 999) for the thresholds.</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -215,7 +212,7 @@ large values (e.g. 999) for the thresholds.</p>
       &copy; 2020 Dow, Inc. and Exponent.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

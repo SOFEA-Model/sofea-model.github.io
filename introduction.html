@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Introduction &#8212; SOFEA 4.1.5-ALPHA documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +11,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="User Guide" href="user-guide/index.html" />
@@ -39,15 +38,15 @@
 <p>The development of a numerical modeling tool for the soil fumigant
 1,3-dichloropropene (1,3-D) started several decades ago using the
 <a class="reference external" href="https://www.epa.gov/scram/air-quality-dispersion-modeling-alternative-models#isc3">Industrial Source Complex Short Term (ISCST3)</a> air dispersion model.
-<a class="footnote-reference" href="#f1" id="id1">[1]</a> Early work was extended by incorporating a soil fate modeling
+<a class="footnote-reference brackets" href="#f1" id="id1">1</a> Early work was extended by incorporating a soil fate modeling
 tool, the <a class="reference external" href="https://www.epa.gov/ceam/przm-version-index">Pesticide Root Zone Model (PRZM3)</a>, to simulate the source
-strength used in ISCST3 air dispersion calculations. <a class="footnote-reference" href="#f2" id="id2">[2]</a> This initial
+strength used in ISCST3 air dispersion calculations. <a class="footnote-reference brackets" href="#f2" id="id2">2</a> This initial
 work was the forerunner of the SOil Fumigant Exposure Assessment (SOFEA)
 modeling system, a stochastic numerical modeling tool developed by
 Dow AgroSciences as a regulatory tool to evaluate and manage human
 inhalation exposure potential associated with the use of soil fumigants
 and other semi-volatile or volatile compounds.</p>
-<p>The original SOFEA model was first described in 2005 <a class="footnote-reference" href="#f3" id="id3">[3]</a> in
+<p>The original SOFEA model was first described in 2005 <a class="footnote-reference brackets" href="#f3" id="id3">3</a> in
 addressing the need to model chemical concentrations in ambient air in
 basins spanning several California townships and assess long-term human
 inhalation exposures and potential human health risks associated with
@@ -73,56 +72,34 @@ statistics, moving averages, and quantiles can be calculated efficiently
 over millions of data points, comprising hourly concentrations over
 several years and thousands of receptors.</p>
 <p>Multiple publications using SOFEA have been documented since SOFEA was
-first developed. <a class="footnote-reference" href="#f4" id="id4">[4]</a> <a class="footnote-reference" href="#f5" id="id5">[5]</a> <a class="footnote-reference" href="#f6" id="id6">[6]</a> <a class="footnote-reference" href="#f7" id="id7">[7]</a> <a class="footnote-reference" href="#f8" id="id8">[8]</a></p>
+first developed. <a class="footnote-reference brackets" href="#f4" id="id4">4</a> <a class="footnote-reference brackets" href="#f5" id="id5">5</a> <a class="footnote-reference brackets" href="#f6" id="id6">6</a> <a class="footnote-reference brackets" href="#f7" id="id7">7</a> <a class="footnote-reference brackets" href="#f8" id="id8">8</a></p>
 <p class="rubric">References</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Cryer SA, van Wesenbeeck IJ. Predicted 1,3-dichloropropene air concentrations resulting from tree and vine applications in California. Journal of Environmental Quality. 2001;20:1887-1895</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Cryer SA, van Wesenbeeck IJ, Knuteson JA. Predicting regional emissions and near-field air concentrations of soil fumigants using modest numerical algorithms: A case study using 1,3-dichloropropene. Journal of Agricultural and Food Chemistry. 2003;51:3401-3409</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f3" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Cryer SA. Predicting soil fumigant acute, sub-chronic, and chronic air concentrations under diverse agronomic practices. Journal of Environmental Quality. 2005;34:2197-2207</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f4" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>de Cirugeda Helle O, van Wesenbeeck IJ, Cryer SA. SOFEA modeling of 1,3-Dichloropropene concentrations in ambient air in high fumigant use areas of the United States. American Chemical Society (ACS). 255th National meeting. Boston, MA. August 19-23, 2018</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f5" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>USEPA Agency Scientific Advisory Panel 2004. Fumigant Bystander Exposure Model Review: Soil Fumigant Exposure Assessment System (SOFEA) Using Telone as a Case Study. Available from: <a class="reference external" href="https://archive.epa.gov/scipoly/">https://archive.epa.gov/scipoly/</a> sap/meetings/web/html/090904_mtg. html [Accessed: September 10, 2004]</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f6" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td>Cryer SA, van Wesenbeeck IJ. Coupling field observations, soil modeling, and air dispersion algorithms to estimate 1,3-dichloropropene and chloropicrin flux and exposure. Journal of Environmental Quality. 2011;2011(40):1450-1461. (Invited Paper for Special Submissions: Agricultural Air Quality)</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f7" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td>van Wesenbeeck IJ, Cryer SA, de Cirugeda Helle O, Li C, Driver J. Comparison of regional air dispersion simulation and ambient air monitoring data for the soil fumigant 1,3-dichloropropene. Science of the Total Environment. 2016:569-570 603-610</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f8" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td>van Wesenbeeck IJ, Cryer SA, Havens PL, Houtman BA. Use of SOFEA to predict 1,3-D concentrations in air in high use regions of California. Journal of Environmental Quality. 2011;40:1462-1469</td></tr>
-</tbody>
-</table>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Cryer SA, van Wesenbeeck IJ. Predicted 1,3-dichloropropene air concentrations resulting from tree and vine applications in California. Journal of Environmental Quality. 2001;20:1887-1895</p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Cryer SA, van Wesenbeeck IJ, Knuteson JA. Predicting regional emissions and near-field air concentrations of soil fumigants using modest numerical algorithms: A case study using 1,3-dichloropropene. Journal of Agricultural and Food Chemistry. 2003;51:3401-3409</p>
+</dd>
+<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Cryer SA. Predicting soil fumigant acute, sub-chronic, and chronic air concentrations under diverse agronomic practices. Journal of Environmental Quality. 2005;34:2197-2207</p>
+</dd>
+<dt class="label" id="f4"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>de Cirugeda Helle O, van Wesenbeeck IJ, Cryer SA. SOFEA modeling of 1,3-Dichloropropene concentrations in ambient air in high fumigant use areas of the United States. American Chemical Society (ACS). 255th National meeting. Boston, MA. August 19-23, 2018</p>
+</dd>
+<dt class="label" id="f5"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>USEPA Agency Scientific Advisory Panel 2004. Fumigant Bystander Exposure Model Review: Soil Fumigant Exposure Assessment System (SOFEA) Using Telone as a Case Study. Available from: <a class="reference external" href="https://archive.epa.gov/scipoly/">https://archive.epa.gov/scipoly/</a> sap/meetings/web/html/090904_mtg. html [Accessed: September 10, 2004]</p>
+</dd>
+<dt class="label" id="f6"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>Cryer SA, van Wesenbeeck IJ. Coupling field observations, soil modeling, and air dispersion algorithms to estimate 1,3-dichloropropene and chloropicrin flux and exposure. Journal of Environmental Quality. 2011;2011(40):1450-1461. (Invited Paper for Special Submissions: Agricultural Air Quality)</p>
+</dd>
+<dt class="label" id="f7"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>van Wesenbeeck IJ, Cryer SA, de Cirugeda Helle O, Li C, Driver J. Comparison of regional air dispersion simulation and ambient air monitoring data for the soil fumigant 1,3-dichloropropene. Science of the Total Environment. 2016:569-570 603-610</p>
+</dd>
+<dt class="label" id="f8"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>van Wesenbeeck IJ, Cryer SA, Havens PL, Houtman BA. Use of SOFEA to predict 1,3-D concentrations in air in high use regions of California. Journal of Environmental Quality. 2011;40:1462-1469</p>
+</dd>
+</dl>
 </div>
 
 
@@ -174,13 +151,11 @@ first developed. <a class="footnote-reference" href="#f4" id="id4">[4]</a> <a cl
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -193,7 +168,7 @@ first developed. <a class="footnote-reference" href="#f4" id="id4">[4]</a> <a cl
       &copy; 2020 Dow, Inc. and Exponent.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

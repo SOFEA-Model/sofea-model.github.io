@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Getting Started &#8212; SOFEA 4.1.5-ALPHA documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Creating Scenarios" href="creating-scenarios.html" />
@@ -44,16 +43,16 @@ to calculate summary statistics, moving averages, estimated percentiles,
 and empirical distributions. Simulations of virtually any complexity can
 be developed by composition of fundamental components:</p>
 <ul class="simple">
-<li><strong>Scenario</strong>: Defines global parameters that apply to the complete
+<li><p><strong>Scenario</strong>: Defines global parameters that apply to the complete
 AERMOD input file. Includes general settings for the dispersion model,
-meteorological data, and flux profiles.</li>
-<li><strong>Source Group</strong>: Defines Monte Carlo parameters and buffer zones
+meteorological data, and flux profiles.</p></li>
+<li><p><strong>Source Group</strong>: Defines Monte Carlo parameters and buffer zones
 that apply to a group of sources (treated fields). Corresponds to
-<code class="docutils literal notranslate"><span class="pre">SO</span> <span class="pre">SRCGROUP</span></code> in AERMOD.</li>
-<li><strong>Source</strong>: Defines the geometry and emission parameters for an
+<code class="docutils literal notranslate"><span class="pre">SO</span> <span class="pre">SRCGROUP</span></code> in AERMOD.</p></li>
+<li><p><strong>Source</strong>: Defines the geometry and emission parameters for an
 individual source term (treated field). Emission parameters can be
 defined for a specific source or derived from distributions specified
-at the Source Group level.</li>
+at the Source Group level.</p></li>
 </ul>
 <p>The input structure is hierarchical, with one scenario containing one or
 more source groups, and one source group containing one or more sources.
@@ -73,23 +72,23 @@ To open the GUI, double-click sofea.exe in the application folder.</p>
 <a class="reference internal image-reference" href="../_images/MainWindow.png"><img alt="Main Window" class="align-center" src="../_images/MainWindow.png" style="width: 624px;" /></a>
 <p>The main window is divided into the Project Browser, Messages, and Workspace:</p>
 <ul class="simple">
-<li><strong>Project Browser</strong>: Manages all of the scenarios and source groups in a project. Most options are accessed via the context menu displayed when right-clicking a scenario or source group.</li>
-<li><strong>Messages</strong>: Captures informational messages and errors from SOFEA and AERMOD while running.</li>
-<li><strong>Workspace</strong>: The central area of the window that displays AERMOD input files and the source data table.</li>
+<li><p><strong>Project Browser</strong>: Manages all of the scenarios and source groups in a project. Most options are accessed via the context menu displayed when right-clicking a scenario or source group.</p></li>
+<li><p><strong>Messages</strong>: Captures informational messages and errors from SOFEA and AERMOD while running.</p></li>
+<li><p><strong>Workspace</strong>: The central area of the window that displays AERMOD input files and the source data table.</p></li>
 </ul>
 <p>The main project controls are available in the menus and toolbar:</p>
 <blockquote class="epigraph">
-<div><dl class="docutils">
-<dt><img alt="NewScenario" src="../_images/NewFile_16x.png" /> <strong>New Scenario</strong></dt>
-<dd>Creates a new scenario with default settings.</dd>
-<dt><img alt="OpenProject" src="../_images/OpenFolder_16x.png" /> <strong>Open Project</strong></dt>
-<dd>Opens an existing project file (.sofea).</dd>
-<dt><img alt="SaveProject" src="../_images/Save_16x.png" /> <strong>Save Project</strong></dt>
-<dd>Saves all scenario and source group data to the project file.</dd>
-<dt><img alt="RunModel" src="../_images/Run_16x.png" /> <strong>Run Model</strong></dt>
-<dd>Opens the run dialog to start and monitor progress of runs.</dd>
-<dt><img alt="AnalyzeResults" src="../_images/Measure_16x.png" /> <strong>Analyze Results</strong></dt>
-<dd>Opens the post-processing utilities to analyze an output file.</dd>
+<div><dl class="simple">
+<dt><img alt="NewScenario" src="../_images/NewFile_16x.png" /> <strong>New Scenario</strong></dt><dd><p>Creates a new scenario with default settings.</p>
+</dd>
+<dt><img alt="OpenProject" src="../_images/OpenFolder_16x.png" /> <strong>Open Project</strong></dt><dd><p>Opens an existing project file (.sofea).</p>
+</dd>
+<dt><img alt="SaveProject" src="../_images/Save_16x.png" /> <strong>Save Project</strong></dt><dd><p>Saves all scenario and source group data to the project file.</p>
+</dd>
+<dt><img alt="RunModel" src="../_images/Run_16x.png" /> <strong>Run Model</strong></dt><dd><p>Opens the run dialog to start and monitor progress of runs.</p>
+</dd>
+<dt><img alt="AnalyzeResults" src="../_images/Measure_16x.png" /> <strong>Analyze Results</strong></dt><dd><p>Opens the post-processing utilities to analyze an output file.</p>
+</dd>
 </dl>
 </div></blockquote>
 </div>
@@ -154,13 +153,11 @@ To open the GUI, double-click sofea.exe in the application folder.</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -173,7 +170,7 @@ To open the GUI, double-click sofea.exe in the application folder.</p>
       &copy; 2020 Dow, Inc. and Exponent.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
